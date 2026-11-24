@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: user-stories-request-without-process
+expected_outcome: |
+  Claude explains that user stories are created downstream by Tech Leads and Developers and that this standard produces Epics and Features, asks which built-in ADO process the team uses instead of inferring Agile from the words 'user stories', asks whether the project is new or already under development, and writes no User Story or other work item, in a file or in the reply. It proposes G0 as Pass or Pass with assumptions, and stops at G0.
+context:
+  scaffold_script: place-files.sh

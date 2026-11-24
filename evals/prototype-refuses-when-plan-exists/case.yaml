@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: prototype-refuses-when-plan-exists
+expected_outcome: |
+  Claude finds the full book-club plan in docs/planning/ (a work-breakdown.yaml without kind: prototype), says a prototype is not planned from an existing full plan and that /plotwork:update with a changes file is the way to change it, and stops: it runs no Stage 0, writes no prototype-plan.md and changes no file.
+context:
+  scaffold_script: place-files.sh

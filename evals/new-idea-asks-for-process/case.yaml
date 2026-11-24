@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: new-idea-asks-for-process
+expected_outcome: |
+  Claude runs Stage 0 only: it writes an Assessment Record (scenario A, gaps with severity, process pending, route, rigor profile), asks which built-in ADO process to use without choosing one, asks about its Blocking and Material gaps with proposed answers, and stops for the G0 review without creating a work breakdown.

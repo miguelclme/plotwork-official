@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: push-asks-for-project
+expected_outcome: |
+  With an approved prototype breakdown but no --project, Claude asks which Azure DevOps project to create the items in and stops: it does not choose a project from the breakdown, the planning files or a list of projects, calls no Azure DevOps tool, writes no substitute for the push, and leaves the planning files unchanged.
+context:
+  scaffold_script: place-files.sh

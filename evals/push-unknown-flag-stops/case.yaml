@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: push-unknown-flag-stops
+expected_outcome: |
+  With the approved tool-share prototype and no Azure DevOps MCP server connected, a push given a flag it does not take (--org) stops at the flag: Claude says --org is not a flag the push takes and prints the usage (--project, --file, --area, --mcp, --help, and no --org). It does not use "MyOrg" as the organization or server, does not go on to check the breakdown or look for Azure DevOps tools, calls no Azure DevOps tool, writes or offers no substitute for the push, and leaves the planning files unchanged.
+context:
+  scaffold_script: place-files.sh

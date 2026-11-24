@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: update-applies-review-notes
+expected_outcome: |
+  Claude applies the six review notes to the existing book-club breakdown: it closes Q-1 and confirms ASM-1 and ASM-2, adds a rating need and Feature with new IDs, defers reading progress without deleting its need or reusing IDs (and asks whether to plan it as a later release now or keep it Deferred, with a proposed answer), turns the user story into a product-level need, logs every change, bumps the version, re-validates, re-renders, and stops for G3.
+context:
+  scaffold_script: place-files.sh

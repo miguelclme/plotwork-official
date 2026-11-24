@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-update-figma-with-file-rejected
+expected_outcome: |
+  --figma works only with a newer folder of the external prototype, not with a file of changes: the screens are rebuilt from code, so they can't show changes that are only in a document. Claude says so, adds that once the functional team has changed the external prototype the skill can read the new version with --figma, and stops. It reads neither client-notes.md nor the planning files, writes nothing, and sends nothing to Figma.
+context:
+  scaffold_script: place-files.sh

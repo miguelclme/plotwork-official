@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: push-without-ado-server-stops
+expected_outcome: |
+  With no Azure DevOps MCP server available, Claude says the push needs one (for example Microsoft's @azure-devops/mcp) and stops: it creates no work items, produces no CSV, REST or az CLI substitute, does not claim anything was pushed, and leaves work-breakdown.yaml (every ado_id null) and the other planning files unchanged.
+context:
+  scaffold_script: place-files.sh

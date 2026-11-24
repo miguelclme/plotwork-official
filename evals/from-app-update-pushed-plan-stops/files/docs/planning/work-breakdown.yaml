@@ -1,0 +1,333 @@
+# Work Breakdown — ToolShare
+# Made by the from-app skill from the client-approved external prototype (tool-share-app, version 1).
+# The review view (work-breakdown.review.md) is generated from this file: never edit the view.
+
+work_breakdown:
+  project: ToolShare
+  key: TSH
+  process: Agile
+  version: "1.0"
+  status: approved
+  rigor: Rigorous
+  planning_sources:
+    - tool-share-app (SRC-1, version 1 of 2026-11-14, approved by the client)
+    - docs/planning/app-inventory.md@v1
+    - docs/planning/assessment.md@v2
+    - docs/planning/brief.md@v2
+    - docs/planning/requirements.md@v2
+    - docs/planning/roadmap.md@v1
+    - docs/planning/decisions-raid.md@v2
+  global_constraints: [NFR-1, NFR-2, NFR-3, NFR-4, NFR-5]
+
+  items:
+    # ── Epic 1 ───────────────────────────────────────────────────────────────────────
+    - draft_id: TSH-EP-001
+      type: Epic
+      title: Neighbourhood tool library
+      parent: null
+      outcome: Residents of the neighbourhood have their own accounts, and can see and offer the tools their neighbours lend.
+      scope:
+        in: [CAP-1, CAP-2]
+        out:
+          - other neighbourhoods (SRC-4)
+          - moving data from the prototype or any other system (none to move, SRC-4)
+      priority: Must
+      traces_to: [OBJ-1, OBJ-3, CAP-1, CAP-2]
+      sources: ["SRC-1 (see app-inventory.md)", "SRC-2 What a resident can do", "SRC-4"]
+      readiness: ready
+      confidence: high
+      open_questions: []
+      tags: []
+      ado_id: 4101
+
+    - draft_id: TSH-FT-001
+      type: Feature
+      title: Resident accounts and sign-in
+      parent: TSH-EP-001
+      description: Residents create their own account with an email address and a password, and sign in with it to use ToolShare. People who are not signed in can't see the neighbourhood's tools or loans.
+      scope:
+        in:
+          - creating an account with an email address and a password (FR-1)
+          - signing in with the email and password (FR-2)
+          - keeping people who are not signed in out of tools and loans (FR-3)
+          - setting a new password after forgetting it, and signing out (FR-4, ASM-2)
+        out:
+          - checking that a person lives in the neighbourhood (ASM-1, Q-1)
+          - deleting an account and its data, until Q-4 is answered
+      acceptance_criteria:
+        - A person can create a resident account with their email address and a password.
+        - A resident can sign in only with the right email address and password.
+        - A person who is not signed in can't see tools or loans, and is asked to sign in.
+        - A resident who forgot their password can set a new one, and a resident can sign out.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 1
+      milestone: MS-1
+      depends_on: []
+      traces_to: [OBJ-3, CAP-1, FR-1, FR-2, FR-3, FR-4, DEC-4]
+      sources: ["SRC-4", "SRC-1 src/pages/Login.jsx", "SRC-1 src/auth.js", "SRC-1 src/main.jsx"]
+      size_hint: M
+      readiness: ready
+      confidence: medium
+      open_questions: [Q-1, Q-4]
+      downstream_notes:
+        - "The prototype's sign-in screen asks for an email and a password, but checks no password and signs in as a sample resident (SRC-1 src/auth.js). The product's sign-in is real (DEC-4)."
+        - "The prototype can sign out, but no screen offers it (SRC-1 src/auth.js)."
+        - "The owner's email names the borrower (SRC-1 src/services/notify.js), and the sample residents have a name and a street (SRC-1 src/demoData.js): confirm with the association which details an account holds."
+      tags: []
+      ado_id: 4102
+
+    - draft_id: TSH-FT-002
+      type: Feature
+      title: Tool catalogue
+      parent: TSH-EP-001
+      description: Signed-in residents see the tools their neighbours offer, find one by name or category, and open it to see its details and where to pick it up.
+      scope:
+        in:
+          - the list of offered tools, with name, category and condition (FR-5)
+          - searching by name and narrowing by category (FR-6)
+          - a tool's details, with category, condition and pick-up place (FR-7)
+        out:
+          - a map of pick-up places (Q-6)
+          - offering a tool (TSH-FT-003)
+          - asking to borrow a tool (TSH-FT-005)
+      acceptance_criteria:
+        - A resident sees every tool their neighbours offer, with its name, category and condition.
+        - A resident can find tools by part of their name, and narrow the list to one category.
+        - A resident can open a tool and see its category, its condition and where to pick it up.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 2
+      milestone: MS-1
+      depends_on: [TSH-FT-001]
+      traces_to: [OBJ-1, CAP-2, FR-5, FR-6, FR-7]
+      sources: ["SRC-1 src/pages/ToolList.jsx", "SRC-1 src/pages/ToolDetail.jsx", "SRC-1 src/store.js", "SRC-2 What a resident can do"]
+      size_hint: M
+      readiness: ready
+      confidence: high
+      open_questions: [Q-6]
+      downstream_notes:
+        - "The prototype's search matches part of a tool's name, ignoring upper and lower case, and says when no tool matches (SRC-1 src/store.js, src/pages/ToolList.jsx)."
+        - "The prototype starts from four sample tools (SRC-1 src/demoData.js). There is no data to migrate (SRC-4)."
+        - "The prototype keeps tools only in each browser (SRC-1 src/store.js): in the product, every resident sees the same tools."
+      tags: []
+      ado_id: 4103
+
+    - draft_id: TSH-FT-003
+      type: Feature
+      title: Offer a tool
+      parent: TSH-EP-001
+      description: A resident offers one of their own tools to the neighbourhood, so that neighbours can find it and ask to borrow it.
+      scope:
+        in:
+          - offering a tool with a name, a category, a condition and a pick-up place (FR-8)
+          - the checks on an offered tool (BR-1, BR-2)
+        out:
+          - changing or withdrawing an offered tool, until Q-8 is answered
+      acceptance_criteria:
+        - A resident can offer a tool with a name, a category, a condition and where to pick it up, and it then appears in the catalogue as theirs.
+        - A tool can't be offered without a name, a category and a pick-up place.
+        - A tool's category and condition come from fixed lists.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 3
+      milestone: MS-1
+      depends_on: [TSH-FT-001]
+      traces_to: [OBJ-1, CAP-2, FR-8, BR-1, BR-2]
+      sources: ["SRC-1 src/pages/LendTool.jsx", "SRC-1 src/store.js", "SRC-1 src/demoData.js", "SRC-2 What a resident can do"]
+      size_hint: S
+      readiness: ready
+      confidence: high
+      open_questions: [Q-8]
+      downstream_notes:
+        - "The prototype's categories are Garden, Power tools, Hand tools, Ladders and Cleaning; its conditions are Like new, Good and Worn, with Good as the default (SRC-1 src/demoData.js, src/pages/LendTool.jsx)."
+        - "In the prototype, the pick-up place is free text (SRC-1 src/pages/LendTool.jsx)."
+      tags: []
+      ado_id: 4104
+
+    - draft_id: TSH-FT-004
+      type: Feature
+      title: Accessibility conformance check
+      parent: TSH-EP-001
+      description: For the association and every resident, proof that every user-facing flow delivered by MS-1 meets WCAG 2.1 AA (NFR-5) on phones and computers (NFR-1), before the first release.
+      scope:
+        in:
+          - checking every user-facing flow delivered by MS-1 against WCAG 2.1 AA, on a phone and on a computer
+          - checking again the failures once they are fixed
+        out:
+          - flows delivered after MS-1, which get their own check
+      acceptance_criteria:
+        - Every user-facing flow delivered by MS-1 has been checked against WCAG 2.1 AA, on a phone and on a computer.
+        - Every failure found has been fixed and checked again before the first release.
+      constraints: []
+      nature: verification
+      priority: Must
+      rank: 7
+      milestone: MS-1
+      depends_on: [TSH-FT-001, TSH-FT-002, TSH-FT-003, TSH-FT-005, TSH-FT-006, TSH-FT-007]
+      traces_to: [OBJ-3, NFR-5, NFR-1]
+      sources: ["SRC-4"]
+      size_hint: M
+      readiness: ready
+      confidence: high
+      open_questions: []
+      downstream_notes: []
+      tags: []
+      ado_id: 4105
+
+    # ── Epic 2 ───────────────────────────────────────────────────────────────────────
+    - draft_id: TSH-EP-002
+      type: Epic
+      title: Borrowing and returning tools
+      parent: null
+      outcome: Residents borrow a neighbour's tool for up to two weeks with a €20 deposit held on their card, the owner is told by email and marks the tool returned, and later neighbours can message each other.
+      scope:
+        in: [CAP-3, CAP-4, CAP-5]
+        out:
+          - messages in the first release (DEC-7)
+      priority: Must
+      traces_to: [OBJ-1, OBJ-2, CAP-3, CAP-4, CAP-5]
+      sources: ["SRC-1 (see app-inventory.md)", "SRC-2 Notes from the workshops", "SRC-4"]
+      readiness: ready
+      confidence: medium
+      open_questions: []
+      tags: []
+      ado_id: 4106
+
+    - draft_id: TSH-FT-005
+      type: Feature
+      title: Borrow requests
+      parent: TSH-EP-002
+      description: A resident asks to borrow a neighbour's tool for a start and an end date. The request is checked against the lending rules, blocks those dates, and the owner gets an email about it.
+      scope:
+        in:
+          - asking to borrow a tool from a start date to an end date (FR-9)
+          - the lending rules on a request (BR-3, BR-4, BR-5, BR-6)
+          - the request blocking its dates at once (ASM-6)
+          - the email to the tool's owner for each new request (FR-10)
+        out:
+          - the owner accepting or declining a request (ASM-6, Q-7)
+          - other emails, such as reminders (not in SRC-1 or SRC-4)
+      acceptance_criteria:
+        - A resident can ask to borrow a neighbour's tool from a start date to an end date, and the request is saved as requested.
+        - A request for more than 14 days, counting the first and the last day, is refused.
+        - A resident can't ask to borrow their own tool.
+        - A request whose end date is before its start date is refused.
+        - A request is refused when its dates overlap a loan of the same tool that is not returned yet.
+        - For each new request, the tool's owner receives an email naming the borrower and the requested dates.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 4
+      milestone: MS-1
+      depends_on: [TSH-FT-002, DEP-1]
+      traces_to: [OBJ-1, OBJ-2, CAP-3, FR-9, FR-10, BR-3, BR-4, BR-5, BR-6, DEC-6]
+      sources: ["SRC-1 src/pages/ToolDetail.jsx", "SRC-1 src/store.js", "SRC-1 src/store.test.js", "SRC-1 src/services/notify.js", "SRC-2 Notes from the workshops", "SRC-4"]
+      size_hint: M
+      readiness: ready
+      confidence: high
+      open_questions: [Q-7]
+      downstream_notes:
+        - "The prototype's rules and their messages are in SRC-1 src/store.js; its automated tests state four of them (SRC-1 src/store.test.js)."
+        - "The prototype only writes the owner's email to the console (SRC-1 src/services/notify.js). The product really sends it (DEC-6), through DEP-1."
+      tags: []
+      ado_id: 4107
+
+    - draft_id: TSH-FT-006
+      type: Feature
+      title: Loans and returns
+      parent: TSH-EP-002
+      description: Borrowers and owners see the loans they take part in, and the owner marks a tool returned when it comes back.
+      scope:
+        in:
+          - the resident's loans, as borrower and as owner, with the tool, the dates and the status (FR-11)
+          - the owner marking a loan returned (FR-12, BR-7)
+        out:
+          - the deposit hold and its release (TSH-FT-007)
+      acceptance_criteria:
+        - A resident sees every loan they take part in, as borrower or as owner, with the tool, the dates and the status.
+        - The tool's owner can mark a loan returned, and nobody else can.
+        - Once a loan is marked returned, its dates are free for new requests.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 5
+      milestone: MS-1
+      depends_on: [TSH-FT-005]
+      traces_to: [OBJ-2, CAP-3, FR-11, FR-12, BR-6, BR-7]
+      sources: ["SRC-1 src/pages/MyLoans.jsx", "SRC-1 src/store.js", "SRC-1 src/store.test.js", "SRC-2 What a resident can do"]
+      size_hint: M
+      readiness: ready
+      confidence: high
+      open_questions: []
+      downstream_notes:
+        - "In the prototype a loan is requested, then returned (SRC-1 src/store.js)."
+        - "The prototype lets the owner mark a loan returned while it is still only requested (SRC-1 src/pages/MyLoans.jsx)."
+      tags: []
+      ado_id: 4108
+
+    - draft_id: TSH-FT-007
+      type: Feature
+      title: Tool deposit
+      parent: TSH-EP-002
+      description: When a borrower collects a tool, €20 is held on their card as a deposit. The hold is released when the owner marks the tool returned.
+      scope:
+        in:
+          - placing the €20 hold from the loan when the borrower collects the tool (FR-13, BR-8, ASM-3)
+          - the loan showing that the deposit is held (ASM-3)
+          - releasing the hold when the owner marks the tool returned (FR-14)
+        out:
+          - taking the deposit for a damaged tool or one not returned (ASM-4, Q-2)
+      acceptance_criteria:
+        - When collecting a tool, the borrower can have €20 held on their card from their loan.
+        - The loan shows that the deposit is held.
+        - When the owner marks the tool returned, the hold is released and no money is taken from the borrower.
+      constraints: []
+      nature: user-facing
+      priority: Must
+      rank: 6
+      milestone: MS-1
+      depends_on: [TSH-FT-006, DEP-2]
+      traces_to: [OBJ-2, CAP-4, FR-13, FR-14, BR-8, DEC-5]
+      sources: ["SRC-4", "SRC-1 src/pages/Deposit.jsx", "SRC-1 src/pages/MyLoans.jsx"]
+      size_hint: L
+      risk:
+        level: high
+        refs: [RSK-2]
+      readiness: ready
+      confidence: medium
+      open_questions: [Q-2, AQ-1, AQ-2]
+      downstream_notes:
+        - "The prototype's deposit screen asks for a card number, an expiry date and a security code, charges nothing, and always shows the deposit as paid after a short wait (SRC-1 src/pages/Deposit.jsx). The product holds the deposit instead of taking it (DEC-5)."
+      tags: []
+      ado_id: 4109
+
+    - draft_id: TSH-FT-008
+      type: Feature
+      title: Messages between neighbours
+      parent: TSH-EP-002
+      description: Residents send messages to each other in the app. What messages must do is not defined yet (Q-3).
+      scope:
+        in:
+          - messages between neighbours, as the answer to Q-3 defines them
+        out:
+          - the first release (DEC-7)
+      acceptance_criteria: []
+      constraints: []
+      nature: user-facing
+      priority: Should
+      rank: 1
+      milestone: MS-2
+      depends_on: [TSH-FT-001]
+      traces_to: [OBJ-1, CAP-5, DEC-7]
+      sources: ["SRC-1 src/pages/Messages.jsx", "SRC-2 Notes from the workshops", "SRC-4"]
+      readiness: needs-elaboration
+      confidence: low
+      open_questions: [Q-3]
+      downstream_notes:
+        - "In the prototype, Messages is a page that says messages are coming soon (SRC-1 src/pages/Messages.jsx)."
+      tags: []
+      ado_id: 4110

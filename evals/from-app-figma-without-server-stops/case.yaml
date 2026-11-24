@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-figma-without-server-stops
+expected_outcome: |
+  With --figma and no Figma MCP server connected, Claude says that --figma needs Figma's MCP server (its remote server) and that the user can run again without --figma, then stops. It reads nothing in ./tool-share-app, writes no file (no docs/planning, no HTML), sends nothing anywhere, and offers no other way to get the screens into Figma.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-unknown-flag-stops
+expected_outcome: |
+  --ado-project is not a from-app flag. Claude says which flag is unknown, prints from-app's usage, and stops. It reads nothing in ./tool-share-app, writes no file, calls no Azure DevOps tool, and doesn't start planning or pushing.
+context:
+  scaffold_script: place-files.sh

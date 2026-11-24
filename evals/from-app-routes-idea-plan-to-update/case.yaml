@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-routes-idea-plan-to-update
+expected_outcome: |
+  docs/planning already holds a work breakdown with no app-inventory.md, so the plan came from an idea or documents, not from an external prototype. Claude says so and stops, giving the ways on: to plan from the external prototype instead, run from-app in a folder with no plan (or move docs/planning aside first); to change the plan, /plotwork:update; to grow this prototype plan, /plotwork:plan. It doesn't read the external prototype's code, write an inventory, or change or replace the existing planning files.
+context:
+  scaffold_script: place-files.sh

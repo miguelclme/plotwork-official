@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1f2328;
+  background: #f6f8fa;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #2f6f4f;
+}
+
+.nav a {
+  color: #ffffff;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.error {
+  color: #b42318;
+}
+
+.hint {
+  color: #57606a;
+}

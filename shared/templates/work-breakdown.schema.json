@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "work-breakdown.schema.json",
+  "title": "Work Breakdown — Plotwork planning standard",
+  "description": "Canonical Stage 3 output (§9.8). Epics and Features only (D17); Basic: Epics only, carrying the Feature-level keys (D18). Keys are neutral and never name ADO fields.",
+  "$comment": "Rules that span several items cannot be expressed in JSON Schema. validate_breakdown.py checks them (§11): draft IDs are unique and start with the breakdown's key; every parent exists and is an Epic; depends_on targets exist and form no cycle; every planning ID resolves in the planning files; every Must FR/NFR is covered; no Feature spans two milestones; the review view's version stamp matches; ado_id is empty everywhere, or filled everywhere on an approved breakdown; a prototype has one milestone and a Later list.",
+  "type": "object",
+  "required": ["work_breakdown"],
+  "additionalProperties": false,
+  "properties": {
+    "work_breakdown": { "$ref": "#/$defs/breakdown" }
+  },
+  "$defs": {
+    "breakdown": {
+      "type": "object",
+      "required": ["project", "key", "process", "version", "status", "rigor", "planning_sources", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "project": { "type": "string", "minLength": 1 },
+        "key": { "type": "string", "pattern": "^[A-Z][A-Z0-9]{1,5}$" },
+        "kind": { "$comment": "Only for a prototype made by /plotwork:prototype. A full plan leaves it out.", "enum": ["prototype"] },
+        "process": { "enum": ["Basic", "Agile", "Scrum", "CMMI"] },
+        "version": { "type": ["string", "number"] },
+        "status": { "enum": ["draft", "in-review", "approved", "superseded"] },
+        "rigor": { "enum": ["Light", "Standard", "Rigorous"] },
+        "planning_sources": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "global_constraints": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nfrId" } },
+        "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/item" } }
+      },
+      "allOf": [
+        {
+          "$comment": "Basic: only Epics (D18), and a ready Epic must pass the hand-off test like a Feature.",
+          "if": { "properties": { "process": { "const": "Basic" } }, "required": ["process"] },
+          "then": {
+            "properties": {
+              "items": {
+                "items": {
+                  "properties": { "type": { "const": "Epic" } },
+                  "if": { "properties": { "readiness": { "const": "ready" } }, "required": ["readiness"] },
+                  "then": { "$ref": "#/$defs/handOffReady" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "item": {
+      "type": "object",
+      "required": ["draft_id", "type", "title", "parent", "priority", "traces_to", "readiness", "confidence", "ado_id"],
+      "additionalProperties": false,
+      "properties": {
+        "draft_id": { "$ref": "#/$defs/draftId" },
+        "type": { "enum": ["Epic", "Feature"] },
+        "title": { "type": "string", "minLength": 1 },
+        "parent": { "type": ["string", "null"] },
+        "description": { "type": "string", "minLength": 1 },
+        "outcome": { "type": "string", "minLength": 1 },
+        "scope": { "$ref": "#/$defs/scope" },
+        "success_measure": { "type": "string" },
+        "acceptance_criteria": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "constraints": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/nfrId" } },
+        "nature": { "enum": ["user-facing", "enabler", "verification"] },
+        "priority": { "enum": ["Must", "Should", "Could", "Won't"] },
+        "rank": { "type": "integer", "minimum": 1 },
+        "milestone": { "type": "string", "pattern": "^MS-[0-9]+$" },
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^([A-Z][A-Z0-9]{1,5}-(EP|FT)-[0-9]{3,}|DEP-[0-9]+)$" }
+        },
+        "traces_to": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/planningId" } },
+        "sources": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "size_hint": { "enum": ["S", "M", "L", "XL"] },
+        "risk": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level"],
+          "properties": {
+            "level": { "enum": ["low", "medium", "high"] },
+            "refs": { "type": "array", "items": { "type": "string", "pattern": "^RSK-[0-9]+$" } }
+          }
+        },
+        "readiness": { "enum": ["ready", "needs-elaboration", "blocked"] },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "open_questions": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^A?Q-[0-9]+$" } },
+        "downstream_notes": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "design": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "tags": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "ado_id": { "type": ["integer", "null"] }
+      },
+      "allOf": [
+        {
+          "$comment": "Epic: top level, EP draft ID, outcome and scope boundary (§9.3).",
+          "if": { "properties": { "type": { "const": "Epic" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "parent": { "type": "null" },
+              "draft_id": { "pattern": "-EP-[0-9]{3,}$" }
+            },
+            "required": ["outcome", "scope"]
+          }
+        },
+        {
+          "$comment": "Feature: FT draft ID, Epic parent (D10), description, scope, nature and milestone (§9.3).",
+          "if": { "properties": { "type": { "const": "Feature" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "parent": { "type": "string", "pattern": "-EP-[0-9]{3,}$" },
+              "draft_id": { "pattern": "-FT-[0-9]{3,}$" }
+            },
+            "required": ["description", "scope", "nature", "milestone"]
+          }
+        },
+        {
+          "$comment": "A ready Feature must pass the hand-off test (§9.1, §11.3).",
+          "if": {
+            "properties": { "type": { "const": "Feature" }, "readiness": { "const": "ready" } },
+            "required": ["type", "readiness"]
+          },
+          "then": { "$ref": "#/$defs/handOffReady" }
+        },
+        {
+          "$comment": "A low-confidence item can never be ready (§11.5).",
+          "if": { "properties": { "confidence": { "const": "low" } }, "required": ["confidence"] },
+          "then": { "properties": { "readiness": { "not": { "const": "ready" } } } }
+        },
+        {
+          "$comment": "needs-elaboration and blocked items name the question that holds them (§11.5).",
+          "if": { "properties": { "readiness": { "enum": ["needs-elaboration", "blocked"] } }, "required": ["readiness"] },
+          "then": { "required": ["open_questions"], "properties": { "open_questions": { "minItems": 1 } } }
+        }
+      ]
+    },
+
+    "handOffReady": {
+      "$comment": "What Tech Leads and Developers need to create delivery-level items without going back to product questions.",
+      "required": ["description", "scope", "acceptance_criteria", "constraints", "milestone", "rank"],
+      "properties": {
+        "acceptance_criteria": { "minItems": 1 },
+        "scope": { "required": ["in", "out"] }
+      }
+    },
+
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["in"],
+      "properties": {
+        "in": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "out": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+
+    "draftId": { "type": "string", "pattern": "^[A-Z][A-Z0-9]{1,5}-(EP|FT)-[0-9]{3,}$" },
+    "nfrId": { "type": "string", "pattern": "^NFR-[0-9]+$" },
+    "planningId": { "type": "string", "pattern": "^(OBJ|CAP|FR|NFR|BR|CON|DEC)-[0-9]+$" }
+  }
+}

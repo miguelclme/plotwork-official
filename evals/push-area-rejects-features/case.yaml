@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: push-area-rejects-features
+expected_outcome: |
+  With the approved tool-share prototype (one Epic, TSH-EP-001, and three Features) and no Azure DevOps MCP server connected, a push asked to put the Feature TSH-FT-002 in one area and Epic number 4 in another stops before calling Azure DevOps, and lists both problems together. Claude says a Feature can't take an area because it always goes in its Epic's area, so an Epic must be given instead, and that 4 is not an Epic in the breakdown. It does not fix the areas itself and carry on, calls no Azure DevOps tool, writes or offers no substitute for the push, and leaves the planning files unchanged.
+context:
+  scaffold_script: place-files.sh

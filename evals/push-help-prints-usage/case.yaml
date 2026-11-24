@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: push-help-prints-usage
+expected_outcome: |
+  With an approved prototype breakdown in the project and only --help given, Claude prints how to use the push and stops: --project (required), --file (default docs/planning/work-breakdown.yaml), --area (Epic numbers and ranges, Features going with their Epic, an --area without numbers for the other Epics) --mcp (the MCP server, needed only when more than one Azure DevOps server is connected) and --help, and that nothing is written until the user says yes to a preview. It does not start a push: it asks for no project, calls no tool apart from loading the skill (no Azure DevOps tool, no reading of the project's files), and writes nothing.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "plotwork",
+  "displayName": "Plotwork",
+  "version": "0.1.0",
+  "description": "Turn an idea, a roadmap or a prototype's source code into a reviewed backlog of Epics and Features, for the whole project or just a first slice, and push it to Azure DevOps. From prototype code, it can also rebuild the screens in Figma.",
+  "author": {
+    "name": "Miguel Mestre"
+  },
+  "homepage": "https://github.com/miguelclme/plotwork-official",
+  "repository": "https://github.com/miguelclme/plotwork-official",
+  "license": "MIT",
+  "icon": "./assets/plotwork-icon.svg",
+  "keywords": ["planning", "prototype", "app-prototype", "figma", "azure-devops", "backlog", "epics", "features", "roadmap", "scrum", "agile", "cmmi", "basic"]
+}

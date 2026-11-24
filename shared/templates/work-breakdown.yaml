@@ -1,0 +1,81 @@
+# Work Breakdown — <Project name>
+# Canonical Stage 3 output of the Plotwork planning standard (§9.8).
+# Validated by work-breakdown.schema.json. The review view (work-breakdown.review.md) is generated
+# from this file: never edit the view; change this file and regenerate (D5, Q2).
+#
+# Only Epics and Features are allowed (D17). In Basic, only Epics are allowed, and each one carries
+# the Feature-level keys (D18). No delivery-level items (Issue, User Story, PBI, Requirement) and no Tasks.
+# Everything in scope is fully described (D8). Missing information goes into open_questions, never invented.
+
+work_breakdown:
+  project: <Project name>
+  key: <KEY>                        # 2–6 characters: an uppercase letter, then uppercase letters or digits. Prefix of every draft_id
+  # kind: prototype                 # only for a prototype made by /plotwork:prototype; a full plan leaves it out
+  process: <Basic | Agile | Scrum | CMMI>   # explicit choice, recorded as DEC-n; never inferred (§6.6)
+  version: "0.1"
+  status: draft                     # draft | in-review | approved | superseded
+  rigor: <Light | Standard | Rigorous>
+  planning_sources:
+    - docs/planning/<file>.md@v<n>
+  global_constraints: []            # NFR IDs that apply to every Feature (D11, Constraint pattern)
+
+  items:
+    # ── Epic ─────────────────────────────────────────────────────────────────────────
+    # Agile / Scrum / CMMI: a large body of work with an outcome; its children are Features.
+    # Basic: a capability-sized Epic; add the Feature keys below (description, acceptance_criteria,
+    # constraints, nature, rank, milestone, depends_on) directly on it.
+    - draft_id: <KEY>-EP-001
+      type: Epic
+      title: <outcome or capability, not an activity>
+      parent: null
+      outcome: <what is true when this Epic is done>
+      scope:
+        in: [<CAP-n>]
+        out: []
+      success_measure: <optional>
+      priority: Must                # Must | Should | Could | Won't
+      traces_to: [<OBJ-n>, <CAP-n>]
+      sources: ["<SRC-n §x>"]
+      readiness: ready              # ready | needs-elaboration | blocked
+      confidence: high              # high | medium | low (a low-confidence item is never ready)
+      open_questions: []            # Q-n / AQ-n; required when needs-elaboration or blocked
+      # design:                       # optional; only plans made from an external prototype (/plotwork:from-app)
+      #   - <Screen> — <where> — <Figma frame link>   # the union of its Features' screens, in order, no duplicates
+      tags: []
+      ado_id: null                  # written only by /plotwork:push
+
+    # ── Feature (Agile / Scrum / CMMI only) ──────────────────────────────────────────
+    # A releasable capability within one milestone. This is the unit handed off to Tech Leads and Developers,
+    # who create the delivery-level items beneath it.
+    - draft_id: <KEY>-FT-001
+      type: Feature
+      title: <capability, e.g. "Recipe collection">
+      parent: <KEY>-EP-001
+      description: <what the capability does, for whom>
+      scope:
+        in:
+          - <included behaviour>
+        out:
+          - <explicitly excluded behaviour>
+      acceptance_criteria:          # capability level, not UI or technical detail (§9.3)
+        - <observable criterion>
+      constraints: []               # NFR IDs that apply to this Feature, in addition to global_constraints
+      nature: user-facing           # user-facing | enabler | verification (D11)
+      priority: Must
+      rank: 1                       # delivery order within the milestone
+      milestone: MS-1
+      depends_on: []                # draft IDs or DEP-n; no cycles
+      traces_to: [<CAP-n>, <FR-n>]
+      sources: ["<SRC-n §x>"]
+      size_hint: M                  # optional S | M | L | XL; not an ADO estimate (D12)
+      risk:                         # optional
+        level: low                  # low | medium | high
+        refs: []                    # RSK-n
+      readiness: ready
+      confidence: high
+      open_questions: []
+      downstream_notes: []          # delivery-level content found in sources, for Tech Leads (scenario C)
+      # design:                       # optional; only plans made from an external prototype (/plotwork:from-app)
+      #   - <Screen> — <where> — <Figma frame link>   # this Feature's own screens (Basic: the Epic's)
+      tags: []
+      ado_id: null

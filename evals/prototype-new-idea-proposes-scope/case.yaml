@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: prototype-new-idea-proposes-scope
+expected_outcome: |
+  Claude runs Stage 0 only: it asks which built-in ADO process to use without choosing one, asks questions with proposed answers only about what the prototype must prove, who tries it, what is out, data limits and the process, proposes a one-milestone prototype scope of what it must prove that includes both of the user's musts (signing up with a plot number, and away requests for watering cover), lists the seed swap, tool shed booking, compost rota and online plot-fee collection for later, proposes G0 as Pass or Pass with assumptions, and stops for the G0 review without writing a work breakdown.

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-update-help-prints-usage
+expected_outcome: |
+  Claude prints from-app-update's usage: that it takes a newer folder of the external prototype or a file of changes, and that --figma works with a folder only and asks before sending anything. Apart from loading the skill it calls no tool, reads none of the project's files, writes nothing, and doesn't start an update.
+context:
+  scaffold_script: place-files.sh

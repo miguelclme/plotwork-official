@@ -1,0 +1,4 @@
+# The from-app cases compare file fingerprints, so their external prototypes keep LF line endings on every checkout.
+from-app*/files/** text eol=lf
+# The scripts that place each case's files run in bash, which fails on Windows line endings.
+*/place-files.sh text eol=lf

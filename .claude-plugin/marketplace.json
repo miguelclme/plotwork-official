@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "plotwork",
+  "description": "Turn an idea, a roadmap or a prototype's source code into a reviewed backlog of Epics and Features, for the whole project or just a first slice, and push it to Azure DevOps. From prototype code, it can also rebuild the screens in Figma.",
+  "owner": {
+    "name": "Miguel Mestre"
+  },
+  "plugins": [
+    {
+      "name": "plotwork",
+      "source": "./",
+      "description": "Turn an idea, a roadmap or a prototype's source code into a reviewed backlog of Epics and Features, for the whole project or just a first slice, and push it to Azure DevOps. From prototype code, it can also rebuild the screens in Figma.",
+      "version": "0.1.0",
+      "category": "productivity"
+    }
+  ]
+}

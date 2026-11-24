@@ -1,0 +1,28 @@
+{
+  "format": 1,
+  "source": "SRC-1",
+  "skipped": ["dist", "node_modules"],
+  "files": {
+    ".env": {"size": 71, "sha256": "39fc6cbb6674cb2eae906a5af672b91a7050d39bb0c828669d7efe65b4689605"},
+    "AGENTS.md": {"size": 311, "sha256": "a069fa044f4890616946041630a755f5deaec24bbe6d12aedfbd197eefdd7c82"},
+    "README.md": {"size": 966, "sha256": "642de7a9b19d12ef768750e1e58c0077cfad67792a60abf98c5d315f5f6a32ee"},
+    "index.html": {"size": 296, "sha256": "3b7af077699ca476b67be5648e47629faa2b6267687b8719701f11139032db17"},
+    "package.json": {"size": 416, "sha256": "6e4842c22594dac0a9d01c49078bea52473b187060c166640fdaafff130aebfd"},
+    "scripts/setup.js": {"size": 216, "sha256": "51bf4765d120b49fdf142ef0cb6eb57a7280c36ba80f8881acf62e131cf0372d"},
+    "src/auth.js": {"size": 550, "sha256": "55a39b959eab4aaaa3baf6b0d848232e0cedd876ccecded3eb1097059958bae1"},
+    "src/demoData.js": {"size": 949, "sha256": "93bb30f49182f5606b23b9693a7c747764144bb5249780a32584a345df34c3b2"},
+    "src/main.jsx": {"size": 1663, "sha256": "3d589bbce300ce0df303bd0c0c476294b84332d56a476fa8998230d7a823a9dd"},
+    "src/pages/Deposit.jsx": {"size": 1266, "sha256": "119ddd952365add2c805407f1b188c86a17afb924fe466f502674baba35fedf9"},
+    "src/pages/LendTool.jsx": {"size": 1584, "sha256": "fed43b25c865559d705540d3e49f6479de396d2cc7d6a1708dcac83aa4f258aa"},
+    "src/pages/Login.jsx": {"size": 662, "sha256": "f7ac301dba795a8905c193ad5351e5bb2dda5f242710d89937e6a1000d747f0a"},
+    "src/pages/Messages.jsx": {"size": 160, "sha256": "fa54ad554f73d8ce9791f300a8e6362c984ef5cf085de7def6bfb5e314ffee85"},
+    "src/pages/MyLoans.jsx": {"size": 1360, "sha256": "ffd7840ef76b81781718a0f713b70c9ad684484f29332069a7430069791eb4bb"},
+    "src/pages/ToolDetail.jsx": {"size": 1358, "sha256": "fc2d907a9be880c03391457af629d0d7836a45ff1f88ba548ecc26d2c3a8a2a8"},
+    "src/pages/ToolList.css": {"size": 361, "sha256": "95d9d785dba82252522f7497108341b12ee782d61b7de4fa9b14922d1479d9a4"},
+    "src/pages/ToolList.jsx": {"size": 1172, "sha256": "faf0ff7976aabd723150b7553b2e132de8c938261b51e6e59e9bd581eb0daaf7"},
+    "src/services/notify.js": {"size": 351, "sha256": "b6dadbd9384b7dbbd8301f691b19361d3a58a639c277cd3c66435ad617720c9f"},
+    "src/store.js": {"size": 2780, "sha256": "65e8d29dccaf32e44a14add93ab05be4054e8344b8fe1fa881ff5dc4f7cb7b61"},
+    "src/store.test.js": {"size": 1012, "sha256": "c703282668bb80c153bf9a4c2db086cd88a8afa42d737ccfb5a2993ba614e2cd"},
+    "src/styles.css": {"size": 392, "sha256": "a32aac7918aa34510562b603daee166f9e345283f8af5858c5cc29163926f3d9"}
+  }
+}

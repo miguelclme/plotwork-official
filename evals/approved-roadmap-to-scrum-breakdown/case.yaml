@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: approved-roadmap-to-scrum-breakdown
+expected_outcome: |
+  Claude records G0 as approved in advance, skips Stages 1 and 2 by referencing the roadmap through a trace index, writes docs/planning/work-breakdown.yaml with process Scrum and only Epics and Features, keeps the roadmap phases as milestones rather than Epics (the quality targets of Phase 3 sit under capability Epics, and its usage-figures need becomes a Feature), references the NFRs by ID, generates the review view, runs validation with no FAIL, records 'new project' and the proposed priorities as items to confirm, writes no acceptance criterion that nothing supports, gives every question a proposed answer, gets an independent review, and stops for the G3 review with that review's result in its message.
+context:
+  scaffold_script: place-files.sh

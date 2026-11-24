@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: demo-lists-examples
+expected_outcome: |
+  With no example ID, Claude lists the available examples and explains how to run the demo for one of them, without writing anything.

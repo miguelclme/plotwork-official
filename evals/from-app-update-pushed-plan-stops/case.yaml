@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: from-app-update-pushed-plan-stops
+expected_outcome: |
+  Every item in docs/planning/work-breakdown.yaml has an ado_id, so the breakdown was pushed to Azure DevOps and the project is under development. Claude says this is out of scope for now and stops. It proposes no change, writes and changes nothing, calls no Azure DevOps tool, and offers no other way to change the items, such as editing them in Azure DevOps for the user.
+context:
+  scaffold_script: place-files.sh

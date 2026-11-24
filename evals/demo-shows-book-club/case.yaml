@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: demo-shows-book-club
+expected_outcome: |
+  Claude presents the book-club example from the plugin's files: the request, how the plan skill handled it, the Epics and Features, the files, a live validation result and what to notice, without writing anything into the project.
